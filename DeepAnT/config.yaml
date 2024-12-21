@@ -1,0 +1,19 @@
+defaults:
+  - dataset: new_york_port  # will be overwritten by following configurations if not specified
+
+common:
+  seed: 200
+  device: cpu
+
+dataset:
+  Port_Data:
+      dataset_name: smoothed_data
+      specific_dataset: smoothed_Singapore_data.csv
+      max_initial_steps: 100
+      max_steps: 500
+      batch_size: 16
+      patience: 150
+      lr: 1e-3
+      window_size: 45
+      hidden_size: 256
+      run_dir: ./experiment/Singapore_port
