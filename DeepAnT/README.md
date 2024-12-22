@@ -119,14 +119,17 @@ The model was trained and validated on the Houston dataset [`Houston dataset`](d
 • Final Validation Loss: 0.0635
 
 ### Anomaly Detection
-• Dynamic Threshold: 0.6485
+• Dynamic Threshold for test dataset: 0.6485
 
 • Detected Anomalies:
 Indices: [30, 31, 32, 38, 39, 40, 41, 42, 43, 44, 45, 46, 847]
 
+• visualized result:
+![anomaly visualized for test data](experiment/Houston_port/anomalies.png)
+
 ### Visualization
 
-• Detected Anomalies:
+• Detected Anomalies for whole dataset by [`inference.py`](inference.py):
 ![Anomaly Dectation in Houston Port from 2021 to 2024](experiment/Houston_port/full_dataset_anomaly_plot.png)
 
 Summation for anomaly scores and anomaly division with corresponding timestamps:
