@@ -108,7 +108,7 @@ This implementation follows the architecture and methodology described in the pa
 	•	Outputs anomaly results and visualizations for the entire dataset.
 
 ---
-## Results
+## Result Sample
 The model was trained and validated on the 1D NAB dataset. Below are key results from the training run:
 ### Training and Validation
 	•	Final Training Loss: 0.0024
@@ -123,48 +123,6 @@ Indices: [54, 55, 84, 132, 134, 135, 139, 141, 142, 144]
 	•	Predictions:
 
 	•	Detected Anomalies:
-
-### Project Structure
-
-DeepAnT
-
-├── data/                    # Input datasets
-
-├── deepant/                 # Core 
-
-implementation
-
-│   ├── __init__.py
-
-│   ├── model.py             # Model architecture
-
-│   ├── trainer.py           # Training logic
-
-├── experiment/              # Experiment results
-
-├── images/                  # Visualizations
-
-├── utils/                   # Utility files
-
-│   ├── __init__.py
-
-│   ├── data_utils.py        # Dataset utilities
-
-│   ├── utils.py             # Additional helpers
-
-├── config.yaml              # Configuration file
-
-├── inference.py             # Inference script
-
-├── LICENSE.txt              # License file
-
-├── main.py                  # Main script
-
-├── README.md                # Project 
-
-documentation
-
-└── requirements.txt         # Dependencies
 
 ## License
 
