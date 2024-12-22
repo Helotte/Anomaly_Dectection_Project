@@ -20,9 +20,8 @@ The original paper introduces **DeepAnT**, a deep learning model for unsupervise
 - **Anomaly Detection**:  
   Compares predicted values with actual values to compute anomaly scores.
 
-While the foundation remains aligned with the paper, modifications have been made to adapt the algorithm to maritime datasets and improve its utility.
-
 ---
+While the foundation remains aligned with the paper, modifications have been made to adapt the algorithm to maritime datasets and improve its utility.
 
 ## Updates and Enhancements
 
@@ -30,20 +29,36 @@ While the foundation remains aligned with the paper, modifications have been mad
 - **Dataset Compatibility**:  
   Added support for maritime datasets with additional preprocessing and analysis tailored to domain-specific requirements.
 
+  The data manipulation script used in this project is located in [`DeepAnT/data/raw_data/manipulate_data.ipynb`](DeepAnT/data/raw_data/manipulate_data.ipynb).
+
+  To view or edit the data preprocessing steps, navigate to the notebook directly at the path above.
+
 - **Enhanced Algorithm**:  
   Adjustments to the core algorithm improve its accuracy and adaptability to diverse time series characteristics.
+
+## Implementation Details
+
+This implementation follows the architecture and methodology described in the paper using PyTorch and PyTorch Lightning.
+
+- **Sliding Window**: Preprocesses the time series data using a sliding window approach.
+- **Forecasting-Based Model**: Predicts the next value(s) in the sequence for anomaly detection.
+- **Training and Validation**: 
+    - Initial training without considering the validation loss.
+    - After the initial training, the best model is selected based on the validation loss, using early stopping to prevent overfitting.
+- **Dynamic Threshold Calculation**: Threshold for anomaly detection procedure is dynamically calculated based on the anomaly scores' statistics.
+- **Visualization**: Provides visualizations for predicted sequences as well as detected anomalies.
+
 
 ### New Features
 1. **`inference.py` Script**:  
    - Analyzes the entire dataset to generate detailed anomaly results.
    - Outputs:
-     - **Excel File**: `anomaly_results_summation.xlsx` with columns: `timestamp`, `anomaly_score`, and `anomaly_level`.
+     - **Excel File**: `anomaly_results_summation.xlsx` with columns: `timestamp`, `anomaly_score`, and `anomaly_level`. Among them, `anomaly_level` is the level of anomaly (normal, mild anomaly, moderate anomaly, severe anomaly). We use '3-sigma' rule to divide anomalies into four levels, where we usually assume that 99.7% of normal data points lie within 3 standard deviations from the mean.
+  
+
      - **Visualizations**: `full_dataset_anomaly_plot.png` and `full_dataset_anomaly_levels_plot.png`.
 
-2. **Dynamic Thresholding**:  
-   Threshold for anomaly detection is dynamically calculated based on statistical properties of anomaly scores.
-
-3. **Configurable Timestamps**:  
+2. **Configurable Timestamps**:  
    - In `trainer.py`:
      ```python
      timestamps = pd.read_csv(
@@ -61,7 +76,7 @@ While the foundation remains aligned with the paper, modifications have been mad
      ```
      Similarly, modify `parse_dates` if necessary to match your dataset.
 
-4. **Adaptation to Various Datasets**:  
+3. **Adaptation to Various Datasets**:  
    Until now, all tested datasets used the column name `summary_time`. If this changes, ensure that `parse_dates` is updated across relevant files (`trainer.py`, `data_utils.py`, and `inference.py`).
 
 ---
@@ -111,28 +126,50 @@ Indices: [54, 55, 84, 132, 134, 135, 139, 141, 142, 144]
 
 ### Project Structure
 
-/DeepAnT
+DeepAnT
+
 ├── data/                    # Input datasets
-├── deepant/                 # Core implementation
+
+├── deepant/                 # Core 
+
+implementation
+
 │   ├── __init__.py
+
 │   ├── model.py             # Model architecture
+
 │   ├── trainer.py           # Training logic
+
 ├── experiment/              # Experiment results
+
 ├── images/                  # Visualizations
+
 ├── utils/                   # Utility files
+
 │   ├── __init__.py
+
 │   ├── data_utils.py        # Dataset utilities
+
 │   ├── utils.py             # Additional helpers
+
 ├── config.yaml              # Configuration file
+
 ├── inference.py             # Inference script
+
 ├── LICENSE.txt              # License file
+
 ├── main.py                  # Main script
-├── README.md                # Project documentation
+
+├── README.md                # Project 
+
+documentation
+
 └── requirements.txt         # Dependencies
 
 ## License
 
 This project is licensed under the MIT License.
+
 
 ## Citation
 
