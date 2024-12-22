@@ -119,13 +119,11 @@ The model was trained and validated on the Houston dataset [`Houston dataset`](d
 • Final Validation Loss: 0.0635
 
 ### Anomaly Detection
-• Dynamic Threshold for test dataset: 0.6485
+• Dynamic Threshold for test dataset: 0.3139
 
 • Detected Anomalies:
-Indices: [30, 31, 32, 38, 39, 40, 41, 42, 43, 44, 45, 46, 847]
+Indices: [`anomaly timestamps`](experiment/Houston_port/full_dataset_anomaly_timestamps.json)
 
-• visualized result:
-![anomaly visualized for test data](experiment/Houston_port/anomalies.png)
 
 ### Visualization
 
