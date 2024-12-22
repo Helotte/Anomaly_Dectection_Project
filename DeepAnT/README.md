@@ -99,7 +99,7 @@ This implementation follows the architecture and methodology described in the pa
     ```bash
     python main.py --dataset_name Port_Data
     ```
-• You can change the dataset name in the ![config.yaml](config.yaml)
+• You can change the dataset name in the [`config.yaml`](config.yaml)
 
 4.	Run the inference script:
     ```bash
@@ -111,7 +111,7 @@ This implementation follows the architecture and methodology described in the pa
 
 ---
 ## Result Sample
-The model was trained and validated on the Houston dataset ![Houston dataset](data/smoothed_data/smoothed_Houston_data.csv) with shape (8523, 12). Below are key results from the training run:
+The model was trained and validated on the Houston dataset [`Houston dataset`](data/smoothed_data/smoothed_Houston_data.csv) with shape (8523, 12). Below are key results from the training run:
 
 ### Training and Validation
 • Final Training Loss: 0.0208
@@ -130,7 +130,7 @@ Indices: [30, 31, 32, 38, 39, 40, 41, 42, 43, 44, 45, 46, 847]
 ![Anomaly Dectation in Houston Port from 2021 to 2024](experiment/Houston_port/full_dataset_anomaly_plot.png)
 
 Summation for anomaly scores and anomaly division with corresponding timestamps:
-![summation table](experiment/Houston_port/anomaly_results_summation.xlsx)
+[`summation table`](experiment/Houston_port/anomaly_results_summation.xlsx)
 
 ## License
 
