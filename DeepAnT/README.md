@@ -1,69 +1,134 @@
 # DeepAnT: A Deep Learning Approach for Unsupervised Anomaly Detection in Time Series
 
-This repository contains an implementation of the paper "DeepAnT: A Deep Learning Approach for Unsupervised Anomaly Detection in Time Series." The original paper can be found [here](https://ieeexplore.ieee.org/document/8581424).
+This repository contains an adapted implementation of the paper **"DeepAnT: A Deep Learning Approach for Unsupervised Anomaly Detection in Time Series"**, originally authored by Mohsin Munir, Shoaib Ahmed Siddiqui, Andreas Dengel, and Sheraz Ahmed. The original paper can be found [here](https://ieeexplore.ieee.org/document/8581424).
+
+This version has been customized and extended to fit maritime datasets, with additional enhancements and features to improve usability and functionality.
+
+---
 
 ## About the Paper
 
-The paper, authored by Mohsin Munir, Shoaib Ahmed Siddiqui, Andreas Dengel, and Sheraz Ahmed, presents DeepAnT, a novel deep learning model designed for unsupervised anomaly detection in time series data. 
+The original paper introduces **DeepAnT**, a deep learning model for unsupervised anomaly detection in time series data. This implementation integrates the core concepts from the paper, including:
 
-- **Model Structure**: 
-The model consists of a sequence of convolutional layers followed by fully connected layers to capture local patterns and long-term dependencies. Below is the model structure from the paper:
-![DeepAnT Structure](images/structure.png)
-- **Unsupervised Learning**: Suitable for applications with scarce labeled anomalies.
-- **Anomaly Detection**: Detects anomalies by comparing predicted values with actual values and calculating anomaly scores.
+- **Model Structure**:  
+  A sequence of convolutional layers followed by fully connected layers, capturing both local patterns and long-term dependencies.  
+  ![DeepAnT Structure](images/structure.png)
 
-## Implementation Details
+- **Unsupervised Learning**:  
+  Designed for applications where labeled anomalies are scarce.
 
-This implementation follows the architecture and methodology described in the paper using PyTorch and PyTorch Lightning.
+- **Anomaly Detection**:  
+  Compares predicted values with actual values to compute anomaly scores.
 
-- **Sliding Window**: Preprocesses the time series data using a sliding window approach.
-- **Forecasting-Based Model**: Predicts the next value(s) in the sequence for anomaly detection.
-- **Training and Validation**: 
-    - Initial training without considering the validation loss.
-    - After the initial training, the best model is selected based on the validation loss, using early stopping to prevent overfitting.
-- **Dynamic Threshold Calculation**: Threshold for anomaly detection procedure is dynamically calculated based on the anomaly scores' statistics.
-- **Visualization**: Provides visualizations for predicted sequences as well as detected anomalies.
+While the foundation remains aligned with the paper, modifications have been made to adapt the algorithm to maritime datasets and improve its utility.
 
-## Results
+---
 
-The model was trained and validated on the 1D NAB dataset. Below are key results from the training run:
+## Updates and Enhancements
 
-### Training and Validation
+### Modifications to Fit Maritime Datasets
+- **Dataset Compatibility**:  
+  Added support for maritime datasets with additional preprocessing and analysis tailored to domain-specific requirements.
 
-- **Final Training Loss**: 0.0024
-- **Final Validation Loss**: 0.0032
+- **Enhanced Algorithm**:  
+  Adjustments to the core algorithm improve its accuracy and adaptability to diverse time series characteristics.
 
-### Anomaly Detection
+### New Features
+1. **`inference.py` Script**:  
+   - Analyzes the entire dataset to generate detailed anomaly results.
+   - Outputs:
+     - **Excel File**: `anomaly_results_summation.xlsx` with columns: `timestamp`, `anomaly_score`, and `anomaly_level`.
+     - **Visualizations**: `full_dataset_anomaly_plot.png` and `full_dataset_anomaly_levels_plot.png`.
 
-- **Dynamic Threshold**: 0.0276
-- **Detected Anomalies**: Anomalies detected at indices [54, 55, 84, 132, 134, 135, 139, 141, 142, 144]
+2. **Dynamic Thresholding**:  
+   Threshold for anomaly detection is dynamically calculated based on statistical properties of anomaly scores.
 
-### Visualizations
+3. **Configurable Timestamps**:  
+   - In `trainer.py`:
+     ```python
+     timestamps = pd.read_csv(
+         os.path.join("./data", self.config["dataset_name"], self.config["specific_dataset"]),
+         parse_dates=["summary_time"]
+     )["summary_time"].values
+     ```
+     If your dataset uses a different date column, update the `parse_dates` argument accordingly.
 
-The results of the model's predictions and anomaly detection are visualized as follows:
+   - In `data_utils.py`:
+     ```python
+     data = pd.read_csv(os.path.join(path, specific_data), index_col="summary_time", parse_dates=["summary_time"])
+     logger.info(f"Dataset shape: {data.shape}")
+     data = data.drop(columns=['summary_time'], errors='ignore')
+     ```
+     Similarly, modify `parse_dates` if necessary to match your dataset.
 
-![Predicted Future Values](images/nab/predictions.png)
-![Detected Anomalies](images/nab/anomalies.png)
+4. **Adaptation to Various Datasets**:  
+   Until now, all tested datasets used the column name `summary_time`. If this changes, ensure that `parse_dates` is updated across relevant files (`trainer.py`, `data_utils.py`, and `inference.py`).
+
+---
 
 ## Usage
 
+### Setup
 1. **Clone the repository**:
     ```bash
     git clone https://github.com/EnsiyeTahaei/DeepAnT.git
     cd DeepAnT
     ```
+2.	**Install dependencies**:
 
-2. **Install the required packages**:
     ```bash
     pip install -r requirements.txt
     ```
 
-3. **Run the main script**:
+3.	Run the main script:
     ```bash
     python main.py --dataset_name <dataset_name>
     ```
+	•	If dataset_name is not provided, it defaults to new_york_port.
 
-Note: dataset_name is optional. If not provided, it defaults to "NAB".
+4.	Run the inference script:
+    ```bash
+    python inference.py
+    ```
+	•	Outputs anomaly results and visualizations for the entire dataset.
+
+---
+## Results
+The model was trained and validated on the 1D NAB dataset. Below are key results from the training run:
+### Training and Validation
+	•	Final Training Loss: 0.0024
+	•	Final Validation Loss: 0.0032
+
+### Anomaly Detection
+	•	Dynamic Threshold: 0.0276
+	•	Detected Anomalies:
+Indices: [54, 55, 84, 132, 134, 135, 139, 141, 142, 144]
+
+### Visualization
+	•	Predictions:
+
+	•	Detected Anomalies:
+
+### Project Structure
+
+/DeepAnT
+├── data/                    # Input datasets
+├── deepant/                 # Core implementation
+│   ├── __init__.py
+│   ├── model.py             # Model architecture
+│   ├── trainer.py           # Training logic
+├── experiment/              # Experiment results
+├── images/                  # Visualizations
+├── utils/                   # Utility files
+│   ├── __init__.py
+│   ├── data_utils.py        # Dataset utilities
+│   ├── utils.py             # Additional helpers
+├── config.yaml              # Configuration file
+├── inference.py             # Inference script
+├── LICENSE.txt              # License file
+├── main.py                  # Main script
+├── README.md                # Project documentation
+└── requirements.txt         # Dependencies
 
 ## License
 
@@ -79,8 +144,7 @@ If you use this code for your research, please cite the original paper:
   title={DeepAnT: A Deep Learning Approach for Unsupervised Anomaly Detection in Time Series}, 
   year={2019},
   volume={7},
-  number={},
   pages={1991-2005},
-  keywords={Anomaly detection;Time series analysis;Clustering algorithms;Data models;Benchmark testing;Heuristic algorithms;Anomaly detection;artificial intelligence;convolutional neural network;deep neural networks;recurrent neural networks;time series analysis},
   doi={10.1109/ACCESS.2018.2886457}
 }
+
