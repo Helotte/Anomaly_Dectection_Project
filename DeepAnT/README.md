@@ -29,7 +29,7 @@ While the foundation remains aligned with the paper, modifications have been mad
 - **Dataset Compatibility**:  
   Added support for maritime datasets with additional preprocessing and analysis tailored to domain-specific requirements.
 
-  The data manipulation script used in this project is located in [`DeepAnT/data/raw_data/manipulate_data.ipynb`](DeepAnT/data/raw_data/manipulate_data.ipynb).
+  The data manipulation script used in this project is located in [`DeepAnT/data/raw_data/manipulate_data.ipynb`](data/raw_data/manipulate_data.ipynb).
 
   To view or edit the data preprocessing steps, navigate to the notebook directly at the path above.
 
