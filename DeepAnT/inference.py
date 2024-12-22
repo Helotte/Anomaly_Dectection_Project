@@ -128,6 +128,7 @@ def main():
     mean_error = np.mean(anomaly_scores)
     std_error = np.std(anomaly_scores)
     threshold = mean_error + threshold_std_rate * std_error
+    print(f"Threshold is set to: {threshold:.4f}")
     anomalies = [i for i, score in enumerate(anomaly_scores) if score > threshold]
     anomaly_timestamps = [str(timestamps[i]) for i in anomalies]  # Convert timestamps to string for JSON compatibility
     # print("Anomalies detected at timestamps:", [timestamps[i] for i in anomalies])
