@@ -97,32 +97,40 @@ This implementation follows the architecture and methodology described in the pa
 
 3.	Run the main script:
     ```bash
-    python main.py --dataset_name <dataset_name>
+    python main.py --dataset_name Port_Data
     ```
-	•	If dataset_name is not provided, it defaults to new_york_port.
+• You can change the dataset name in the ![config.yaml](config.yaml)
 
 4.	Run the inference script:
     ```bash
     python inference.py
     ```
-	•	Outputs anomaly results and visualizations for the entire dataset.
+• Outputs anomaly results and visualizations for the entire dataset.
+
+• You should change the `city` name in the main function for different datasets.
 
 ---
 ## Result Sample
-The model was trained and validated on the 1D NAB dataset. Below are key results from the training run:
+The model was trained and validated on the Houston dataset ![Houston dataset](data/smoothed_data/smoothed_Houston_data.csv) with shape (8523, 12). Below are key results from the training run:
+
 ### Training and Validation
-	•	Final Training Loss: 0.0024
-	•	Final Validation Loss: 0.0032
+• Final Training Loss: 0.0208
+
+• Final Validation Loss: 0.0635
 
 ### Anomaly Detection
-	•	Dynamic Threshold: 0.0276
-	•	Detected Anomalies:
-Indices: [54, 55, 84, 132, 134, 135, 139, 141, 142, 144]
+• Dynamic Threshold: 0.6485
+
+• Detected Anomalies:
+Indices: [30, 31, 32, 38, 39, 40, 41, 42, 43, 44, 45, 46, 847]
 
 ### Visualization
-	•	Predictions:
 
-	•	Detected Anomalies:
+• Detected Anomalies:
+![Anomaly Dectation in Houston Port from 2021 to 2024](experiment/Houston_port/full_dataset_anomaly_plot.png)
+
+Summation for anomaly scores and anomaly division with corresponding timestamps:
+![summation table](experiment/Houston_port/anomaly_results_summation.xlsx)
 
 ## License
 
