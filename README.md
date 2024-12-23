@@ -1,4 +1,4 @@
-# Anomaly Dectection Project
+# Anomaly Detection Project
 
 You can upload your data and model in this repository.
 
